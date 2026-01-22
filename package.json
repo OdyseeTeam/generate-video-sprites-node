@@ -1,28 +1,28 @@
 {
   "name": "generate-video-sprites-node",
-  "version": "1.0.4",
-  "description": "",
+  "version": "26.1.0",
+  "description": "Generate video preview sprites and WebVTT files for video player scrubbing thumbnails",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "cd examples && ../node_modules/http-server/bin/http-server -c-1",
-    "example": "node cli.js --input './examples/assets/video.mp4' --outputFolder './examples/assets' --filename video --debug"
+    "example": "bun cli.js --input './examples/assets/video.mp4' --outputFolder './examples/assets' --filename video --debug"
   },
   "author": "",
   "license": "ISC",
-  "repository": "git://github.com/mayeaux/generate-video-sprites-node.git",
+  "repository": "git@github.com:OdyseeTeam/generate-video-sprites-node.git",
   "dependencies": {
     "commander": "^9.2.0",
     "ffprobe": "^1.1.2",
-    "fluent-ffmpeg": "^2.1.2",
+    "fluent-ffmpeg": "^2.1.3",
     "fs-extra": "^10.1.0",
     "image-size": "^1.0.1",
-    "join-images": "^1.0.0",
-    "node-webvtt": "^1.9.3",
-    "sharp": "^0.30.1",
+    "join-images": "^1.1.5",
+    "node-webvtt": "^1.9.4",
+    "sharp": "^0.34.5",
     "which": "^2.0.2"
   },
   "devDependencies": {
-    "http-server": "^14.1.0"
+    "http-server": "^14.1.1"
   }
 }

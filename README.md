@@ -1,29 +1,91 @@
 # generate-video-sprites-node
-Node package for generating preview sprites for videos
 
-Install: $ `npm i generate-video-sprites-node`
+Node.js package for generating video preview sprites and WebVTT files for video player scrubbing thumbnails. Also generates animated hover thumbnails.
 
-# Docs
+## Requirements
 
-Install python 3.9 and the install requirements.txt, runs as `$ python`
+- [Bun](https://bun.sh/) or Node.js
+- ffmpeg/ffprobe installed on system
 
-From project root, run `$ node examples/example.js` and then check the `output` folder
+## Installation
 
-####Then:
-Test on a new video: drop a new video in the `videos` folder
+```bash
+bun install generate-video-sprites-node
+```
 
-Then you can run
-`~ cd videos`
-`$  ffmpeg -ss 00:00:00 -i newVideo.mp4 -to 00:00:30 -c copy newVideoTrimmed.mp4
-`
+## Features
 
-You will need to serve the .vtt file from a path that your video player can access. Also, you will need to serve the sprite from a place that will be referenced in the vtt file.  
+### 1. Sprite Generation
 
-Uses this Python library for generating the sprite from the video: https://github.com/flavioribeiro/video-thumbnail-generator
+Generates thumbnail sprites and WebVTT files for video player seek bar previews (like YouTube).
 
+```bash
+bun cli.js --input ./video.mp4 --outputFolder ./output --filename video
+```
 
+**Options:**
+- `--input` (required) - Path to video file
+- `--outputFolder` - Output directory
+- `--filename` - Base name for output files
+- `--interval` - Seconds between screenshots (default: 2)
+- `--thumbnailSize` - Longest side in pixels (default: 140)
+- `--targetSize` - Max sprite file size in KB before splitting (default: 80)
+- `--columns` - Thumbnails per row (default: 9)
+- `--prependPath` - Path prefix in VTT file (default: ".")
+- `--debug` - Verbose logging, keeps intermediate files
 
-// ffmpeg -i extrawelt.mp4 -vf fps=1/2 -f image2 -s 140x79 out%d.jpg
- 
-start server
-cd examples && ../node_modules/http-server/bin/http-server -c-1
+**Output:** `{filename}-{n}.webp` sprite images + `{filename}_sprite.vtt`
+
+### 2. Hover Thumbnail
+
+Generates an animated `.webp` thumbnail from a 5-second clip at 2x speed.
+
+```bash
+bun generate-hover-thumbnail-cli.js --inputFilePath ./video.mp4 --outputFolder ./output --filename video
+```
+
+**Options:**
+- `--inputFilePath` (required) - Path to video file
+- `--outputFolder` (required) - Output directory
+- `--filename` (required) - Output filename (produces `{filename}.webp`)
+- `--debug` - Verbose logging, keeps intermediate files
+
+## Programmatic Usage
+
+```javascript
+const createSpriteWithVTT = require('generate-video-sprites-node');
+
+await createSpriteWithVTT({
+  inputFilePath: './video.mp4',
+  outputFileDirectory: './output',
+  filename: 'video',
+  spriteFileName: 'video_sprite.webp',
+  spriteOutputFilePath: './output/video_sprite.webp',
+  webVTTOutputFilePath: './output/video_sprite.vtt',
+  intervalInSecondsAsInteger: 2,
+  columns: 9,
+  thumbnailLongestSide: 140,
+  targetSizeInKb: 80,
+  prependPath: '.',
+  debug: false
+});
+```
+
+## Docker
+
+```bash
+docker build -t video-sprites .
+```
+
+## Development
+
+```bash
+# Install dependencies
+bun install
+
+# Run example
+bun run example
+
+# Start dev server for examples
+bun run server
+```
