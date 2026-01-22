@@ -9,8 +9,7 @@ async function generateSpriteImage(
     screenshotIntervalInSeconds,
     sizeAsWidthxHeight,
     outputFolder,
-    spriteOutputFilePath,
-    debug
+    spriteOutputFilePath
   }){
   try {
     const screenshotImagesFolder = `${outputFolder}/screenshotImages`;
@@ -26,8 +25,7 @@ async function generateSpriteImage(
       path: videoPath,
       fps: (1 / screenshotIntervalInSeconds),
       size: sizeAsWidthxHeight,
-      outputFolder: screenshotImagesFolder,
-      debug
+      outputFolder: screenshotImagesFolder
     })
 
     c.l(response);
@@ -36,15 +34,15 @@ async function generateSpriteImage(
     const spriteResponse = await joinImages({
       columns,
       outputPath: outputFolder,
-      spriteOutputFilePath,
-      debug
+      spriteOutputFilePath
     })
 
     c.l(spriteResponse);
 
     return spriteResponse
   } catch (err){
-    console.log(err)
+    console.log(err);
+    throw err;
   }
 }
 

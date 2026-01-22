@@ -61,12 +61,12 @@ async function generateHoverThumbnail({ inputFilePath, outputFolder, filename, d
     })
 
     if(!debug){
-      fs.remove(spedUpFilePath);
-      fs.remove(trimmedFilePath)
+      await fs.remove(spedUpFilePath);
+      await fs.remove(trimmedFilePath);
     }
   } catch (err){
-    l(err)
-    throw new Error(err);
+    l(err);
+    throw err;
   }
 }
 
@@ -115,7 +115,7 @@ async function trimFile(
       .on('progress', function (progress) {
         l(`PROGRESS: ${Math.ceil(progress.percent)}%`);
       })
-      .on('end', async () => {
+      .on('end', () => {
         l('Processing finished !');
         resolve('success');
 
@@ -147,7 +147,7 @@ async function speedUpFile(
       .on('progress', function (progress) {
         l(`PROGRESS: ${Math.ceil(progress.percent)}%`);
       })
-      .on('end', async () => {
+      .on('end', () => {
         l('Processing finished !');
         resolve('success');
 
@@ -184,7 +184,7 @@ async function generateHoverPreviewThumbnail(
       .on('progress', function (progress) {
         l(`PROGRESS: ${Math.ceil(progress.percent)}%`);
       })
-      .on('end', async () => {
+      .on('end', () => {
         l('Processing finished !');
         resolve('success');
 

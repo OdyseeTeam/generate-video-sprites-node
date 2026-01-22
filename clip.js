@@ -21,12 +21,12 @@ let distributeInteger = function* (total, divider) {
 }
 
 function range(start, end) {
-  var myArray = [];
-  for (var i = start; i <= end; i += 1) {
+  const myArray = [];
+  for (let i = start; i <= end; i += 1) {
     myArray.push(i);
   }
   return myArray;
-};
+}
 
 
 async function clipSpriteThumbnail({
@@ -37,13 +37,6 @@ async function clipSpriteThumbnail({
    outputFileDirectory,
    filename
 }){
-
-  if(!debug){
-    const c = {
-      l : undefined
-    }
-  }
-
   // used for creating the webvtt
   const imagesWithRows = [];
 

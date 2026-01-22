@@ -2,12 +2,8 @@ const fs = require("fs");
 const webvtt = require("node-webvtt");
 
 function getImageNumberFromRow(mappingArray, row){
-  // loop through all the thumbnail items in the array
   for(const imageItem of mappingArray) {
-
     const { startingRow, finishingRow, imageNumber, amountOfRows } = imageItem
-
-    // get the matching information for that row
     if(row >= startingRow && row <= finishingRow){
       return {
         imageNumber,
@@ -17,6 +13,7 @@ function getImageNumberFromRow(mappingArray, row){
       }
     }
   }
+  throw new Error(`No mapping found for row ${row}. mappingArray has ${mappingArray.length} entries.`);
 }
 
 /**

@@ -28,10 +28,9 @@ async function generateVideoScreenshots(
       .on('progress', function (progress) {
         c.l(`CONVERTED: ${Math.ceil(progress.percent)}%`);
       })
-      .on('end', async () => {
+      .on('end', () => {
         c.l('Processing finished !');
         resolve('success');
-
       }).save(`${outputFolder}/thumb-%d.png`);
   })
 }

@@ -6,8 +6,8 @@ const createSpriteWithVTT = require('./index');
 program
   .description('Takes a video and creates a thumbnail sprite with corresponding vtt for progress preview thumbnails')
   .requiredOption('-i, --input <type>', 'Path to the video that thumbnails will be created for')
-  .option('--outputFolder <type>', 'Path to the folder where the thumbnail sprite/s and vtt will be saved')
-  .option('--filename <type>', 'Name of the output files, by default it will be ${filename}_sprite.webp and ${filename}_sprite.vtt')
+  .requiredOption('--outputFolder <type>', 'Path to the folder where the thumbnail sprite/s and vtt will be saved')
+  .requiredOption('--filename <type>', 'Name of the output files, by default it will be ${filename}_sprite.webp and ${filename}_sprite.vtt')
   .option('--interval <type>', 'Integer representing the interval in seconds between screenshots (aka 2 is once every 2 seconds)', '2')
   .option('--prependPath <type>', 'Used in the webvtt to build paths to where the sprite thumbnail/s will be served', '.')
   .option('--thumbnailSize <type>', 'Instead of setting height/width (px), set the longest side and an algorithm will calculate the other', '140')
@@ -54,20 +54,27 @@ if(debug){
   console.log(`columns: ${columns}`)
 }
 
-createSpriteWithVTT({
-  inputFilePath,
-  filename,
-  spriteFileName,
-  spriteOutputFilePath,
-  webVTTOutputFilePath,
-  prependPath,
-  intervalInSecondsAsInteger: Number(intervalInSecondsAsInteger),
-  columns: Number(columns),
-  thumbnailLongestSide: Number(thumbnailLongestSide),
-  targetSizeInKb: Number(targetSizeInKb),
-  debug,
-  outputFileDirectory: outputFolder
-})
+(async () => {
+  try {
+    await createSpriteWithVTT({
+      inputFilePath,
+      filename,
+      spriteFileName,
+      spriteOutputFilePath,
+      webVTTOutputFilePath,
+      prependPath,
+      intervalInSecondsAsInteger: Number(intervalInSecondsAsInteger),
+      columns: Number(columns),
+      thumbnailLongestSide: Number(thumbnailLongestSide),
+      targetSizeInKb: Number(targetSizeInKb),
+      debug,
+      outputFileDirectory: outputFolder
+    });
+  } catch (err) {
+    console.error(err);
+    process.exitCode = 1;
+  }
+})()
 
 // Example to use:
 

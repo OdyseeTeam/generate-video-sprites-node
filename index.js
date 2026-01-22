@@ -97,8 +97,7 @@ async function createSpriteAndThumbnails({
       screenshotIntervalInSeconds: intervalInSecondsAsInteger,
       sizeAsWidthxHeight,
       outputFolder: `${outputFileDirectory}/processing`,
-      spriteOutputFilePath,
-      debug
+      spriteOutputFilePath
     })
 
     c.l(`Sprite image creation: ${averageRowSizeInKb}`)
@@ -144,13 +143,13 @@ async function createSpriteAndThumbnails({
     c.l(cttResponse)
 
     if(!debug){
-      fs.remove(spriteOutputFilePath);
-      fs.remove(`${outputFileDirectory}/processing`)
+      await fs.remove(spriteOutputFilePath);
+      await fs.remove(`${outputFileDirectory}/processing`);
     }
 
   } catch (err){
     c.l(err);
-    throw new Error(err);
+    throw err;
   }
 }
 

@@ -30,12 +30,19 @@ if(debug){
   console.log(`debug: ${debug}`)
 }
 
-generateHoverThumbnail({
-  inputFilePath,
-  filename,
-  outputFolder,
-  debug,
-})
+(async () => {
+  try {
+    await generateHoverThumbnail({
+      inputFilePath,
+      filename,
+      outputFolder,
+      debug,
+    });
+  } catch (err) {
+    console.error(err);
+    process.exitCode = 1;
+  }
+})()
 
 // Example to use:
 

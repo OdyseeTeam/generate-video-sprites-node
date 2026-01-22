@@ -72,9 +72,9 @@ async function createFullImage({
 
   for(const image of horizontalImages){
     const horizontalFile = `${horizontalImagesDirectory}/${image}`;
-    var stats = fs.statSync(horizontalFile)
-    var fileSizeInBytes = stats.size;
-    var fileSizeInKb = Math.round(fileSizeInBytes / (1024));
+    const stats = fs.statSync(horizontalFile);
+    const fileSizeInBytes = stats.size;
+    const fileSizeInKb = Math.round(fileSizeInBytes / 1024);
     arrayOfRowSizes.push(fileSizeInKb)
     c.l(fileSizeInKb)
   }
