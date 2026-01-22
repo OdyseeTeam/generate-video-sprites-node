@@ -1,5 +1,8 @@
 # generate-video-sprites-node
 
+[![Docker Build](https://github.com/OdyseeTeam/generate-video-sprites-node/actions/workflows/docker.yml/badge.svg)](https://github.com/OdyseeTeam/generate-video-sprites-node/actions/workflows/docker.yml)
+[![Docker Image](https://img.shields.io/docker/v/odyseeteam/transcoder-gensprite?label=docker&sort=semver)](https://hub.docker.com/r/odyseeteam/transcoder-gensprite)
+
 Node.js package for generating video preview sprites and WebVTT files for video player scrubbing thumbnails. Also generates animated hover thumbnails.
 
 ## Requirements
@@ -25,8 +28,8 @@ bun cli.js --input ./video.mp4 --outputFolder ./output --filename video
 
 **Options:**
 - `--input` (required) - Path to video file
-- `--outputFolder` - Output directory
-- `--filename` - Base name for output files
+- `--outputFolder` (required) - Output directory
+- `--filename` (required) - Base name for output files
 - `--interval` - Seconds between screenshots (default: 2)
 - `--thumbnailSize` - Longest side in pixels (default: 140)
 - `--targetSize` - Max sprite file size in KB before splitting (default: 80)
@@ -72,6 +75,14 @@ await createSpriteWithVTT({
 ```
 
 ## Docker
+
+Pre-built images are available on Docker Hub:
+
+```bash
+docker pull odyseeteam/transcoder-gensprite:26.1.1
+```
+
+Or build locally:
 
 ```bash
 docker build -t video-sprites .
